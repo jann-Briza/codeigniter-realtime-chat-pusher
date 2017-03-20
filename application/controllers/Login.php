@@ -6,6 +6,7 @@ class Login extends CI_Controller {
     {
         parent::__construct();
         $this->load->model('chat_model');
+        $this->load->library('ci_pusher');
     }
 	public function index()
 	{
@@ -23,6 +24,7 @@ class Login extends CI_Controller {
 			'username' => $username,
 			'email'    => $email,
 			'password' => password_hash($password, PASSWORD_DEFAULT), 
+			'status'   => 'idle',
 		);
 
 		$this->chat_model->add_user($data);
@@ -35,11 +37,19 @@ class Login extends CI_Controller {
         if( $logged == 1 ){
 	    	$data = array('status' => "idle");
 			$this->chat_model->update($this->session->userdata('id'),$data);
+            $this->append_onnline();
             redirect('chat');
 
         }else{
             redirect('login');
         }
+	}
+	public function append_onnline(){
+		//pusher
+		$pusher = $this->ci_pusher->get_pusher();	
+		$data['id'] = $this->session->userdata('id');
+		$data['username'] = $this->session->userdata('user_name');
+		$event = $pusher->trigger('chatglobal', 'appendponline', $data);
 	}
 	public function logout(){
 		$this->session->sess_destroy();

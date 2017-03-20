@@ -23,6 +23,7 @@ class Chat extends CI_Controller {
 		
 		$event = $pusher->trigger('chatglobal', 'my_event', $data);
 	}
+
 	public function update_user(){
 		$username = $_POST['username'];
 		$email    = $_POST['email'];

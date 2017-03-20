@@ -27,7 +27,7 @@
 			               </button>
 			            </div>
 			            <div class="member_list">
-			               <ul class="list-unstyled">
+			               <ul class="list-unstyled" id="appendponline">
 			               	  <?php foreach($active_members as $value){?>
 			                  <li class="left clearfix">
 			                     <span class="chat-img pull-left">
@@ -132,6 +132,23 @@
 		channel.bind('my_event', function(data) {
 			sendmessage(data);
 		});
+		channel.bind('appendponline', function(data) {
+			appendponline(data);
+		});
+		function appendponline(data){
+			html = '';
+			html += '<li class="left clearfix">';
+			html += ' <span class="chat-img pull-left">';
+			html += ' <img src="https://devci.gabbyville.com/public/img/avatar/p3.jpg" class="img-circle">';
+			html += ' </span>';
+			html += '<div class="chat-body clearfix">';
+			html += '<div class="header_sec">';
+			html += ' <strong class="primary-font">'+data.username+'</strong>';
+			html += '</div>';
+			html += '</div>';
+			html += '</li>';
+			$('#appendponline').append(html);
+		}
 		function sendmessage(data){
 			var ses_id = <?php echo $this->session->userdata('id');?>;
 			if(data.id == ses_id){
@@ -149,7 +166,6 @@
 				$('#appendchat').append(html);
 				$('#message').val("");
 			}else{
-
 				html = '';
 				html += '<li class="left clearfix admin_chat">'; 
 				html += '<span class="chat-img1 pull-right">'; 
