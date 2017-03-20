@@ -17,6 +17,10 @@ class chat_model extends CI_Model
         $this->db->where('status',$status);
         return $this->db->get('users')->result();
     }
+    public function get_by_id($id){
+        $this->db->where('id',$id);
+        return $this->db->get('users')->row();
+    }
     public function update($id,$data){
         $this->db->where('id', $id);
         $this->db->update('users', $data);

@@ -48,35 +48,67 @@
 					 
 					 
 			         <div class="col-sm-9 message_section">
-					 <div class="row">
-					 <div class="new_message_head">
-					 <div class="pull-left"><button>Chat Mo To</button></div><div class="pull-right"><div class="dropdown">
-			  <button class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-			    <i class="fa fa-cogs" aria-hidden="true"></i>  Setting
-			    <span class="caret"></span>
-			  </button>
-			  <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
-			    <li><a href="#">Profile</a></li>
-			    <li><a href="<?php echo base_url();?>login/logout">Logout</a></li>
-			  </ul>
-			</div></div>
-					 </div><!--new_message_head-->
-					 
-					 <div class="chat_area">
-					 <ul id="appendchat" class="list-unstyled">
-					 </ul>
-					 </div><!--chat_area-->
-			          <div class="message_write">
-			    	 <textarea class="form-control" id="message" placeholder="type a message"></textarea>
-					 <div class="clearfix"></div>
-					 <div class="chat_bottom"><a id="sendchat" href="#" class="pull-right btn btn-success">Send</a></div>
-					 </div>
-					 </div>
+						 <div class="row">
+							 <div class="new_message_head">
+								 <div class="pull-left"><button>Chat Mo To</button></div><div class="pull-right"><div class="dropdown">
+								  <button class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								    <i class="fa fa-cogs" aria-hidden="true"></i>  Setting
+								    <span class="caret"></span>
+								  </button>
+								  <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
+								    <li><a href="#" data-toggle="modal" data-target="#myModal">Profile</a></li>
+								    <li><a href="<?php echo base_url();?>login/logout">Logout</a></li>
+								  </ul>
+								</div></div>
+							 </div><!--new_message_head-->
+							 
+							 <div class="chat_area">
+								 <ul id="appendchat" class="list-unstyled">
+								 </ul>
+							 </div><!--chat_area-->
+						         <div class="message_write">
+						    	 <textarea class="form-control" id="message" placeholder="type a message"></textarea>
+								 <div class="clearfix"></div>
+								 <div class="chat_bottom"><a id="sendchat" href="#" class="pull-right btn btn-success">Send</a></div>
+							 </div>
+						 </div>
 			         </div> <!--message_section-->
 			      </div>
 			   </div>
 			</div>
 		</div>
+		  <!-- Modal -->
+		  <div class="modal fade" id="myModal" role="dialog">
+		    <div class="modal-dialog">
+		    
+		      <!-- Modal content-->
+		      <div class="modal-content">
+		        <div class="modal-header">
+		          <button type="button" class="close" data-dismiss="modal">&times;</button>
+		          <h4 class="modal-title">Edit Your Profile</h4>
+		        </div>
+		        <div class="modal-body">
+				    <div class="form-group">
+				      <label for="usr">Username:</label>
+				      <input type="text" value="<?php echo $myprofile->username;?>" class="form-control" id="username">
+				    </div>
+				    <div class="form-group">
+				      <label for="usr">Email:</label>
+				      <input type="text" value="<?php echo $myprofile->email;?>" class="form-control" id="email">
+				    </div>
+				    <div class="form-group">
+				      <label for="usr">Password:</label>
+				      <input type="text" class="form-control" id="password">
+				    </div>
+		        </div>
+		        <div class="modal-footer">
+		          <button type="button" class="btn btn-success" id="updateuser">Submit</button>
+		          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		        </div>
+		      </div>
+		      
+		    </div>
+		  </div>
 	</div>
 </body>
 </html>
@@ -115,6 +147,7 @@
 				html += '</li>'; 
 				$("html, body .chat_area").animate({ scrollTop: $(document).height() }, 1000);
 				$('#appendchat').append(html);
+				$('#message').val("");
 			}else{
 
 				html = '';
@@ -142,6 +175,24 @@
 	           },
 	          success:function()
 	          { 
+	          }    
+          	});
+		});
+		$('#updateuser').click(function(){
+	        email    = $('#email').val();
+	        password = $('#password').val();
+	        username = $('#username').val();
+	        $.ajax({
+	          url: "<?php echo base_url(); ?>chat/update_user/",
+	          type: 'POST',
+	          data:{
+	          email    : email, 
+	          password : password, 
+	          username : username, 
+	           },
+	          success:function()
+	          { 
+	          	location.reload();
 	          }    
           	});
 		});

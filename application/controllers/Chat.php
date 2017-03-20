@@ -11,6 +11,7 @@ class Chat extends CI_Controller {
 	public function index()
 	{
 		$data['active_members'] = $this->chat_model->get_all_online('idle');
+		$data['myprofile'] = $this->chat_model->get_by_id($this->session->userdata('id'));
 		$this->load->view('chat',$data);
 	}
 	public function chatsend(){
@@ -21,5 +22,23 @@ class Chat extends CI_Controller {
 		$data['username'] = $this->session->userdata('user_name');
 		
 		$event = $pusher->trigger('chatglobal', 'my_event', $data);
+	}
+	public function update_user(){
+		$username = $_POST['username'];
+		$email    = $_POST['email'];
+		$password = $_POST['password'];
+		if($password == ""){
+			$data = array(
+				'username' => $username,
+				'email'    => $email,
+			);
+		}else{
+			$data = array(
+				'username' => $username,
+				'email'    => $email,
+				'password' => $password,
+			);
+		}
+		$this->chat_model->update($this->session->userdata('id'),$data);
 	}
 }
