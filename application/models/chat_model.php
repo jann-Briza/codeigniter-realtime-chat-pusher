@@ -13,6 +13,14 @@ class chat_model extends CI_Model
     public function add_user($data){
         $this->db->insert('users',$data);
     }
+    public function get_all_online($status){
+        $this->db->where('status',$status);
+        return $this->db->get('users')->result();
+    }
+    public function update($id,$data){
+        $this->db->where('id', $id);
+        $this->db->update('users', $data);
+    }
     public function login(){
         $query = $this->db->get_where('users', 
             array(

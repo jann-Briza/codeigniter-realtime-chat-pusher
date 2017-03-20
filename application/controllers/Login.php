@@ -33,7 +33,8 @@ class Login extends CI_Controller {
 	 	$logged = $this->chat_model->login();
 
         if( $logged == 1 ){
-
+	    	$data = array('status' => "idle");
+			$this->chat_model->update($this->session->userdata('id'),$data);
             redirect('chat');
 
         }else{
@@ -42,6 +43,8 @@ class Login extends CI_Controller {
 	}
 	public function logout(){
 		$this->session->sess_destroy();
+		$data = array('status' => "");
+		$this->chat_model->update($this->session->userdata('id'),$data);
 		redirect('login');
 	}
 }

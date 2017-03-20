@@ -18,12 +18,7 @@
 			         <div class="col-sm-3 chat_sidebar">
 			    	 <div class="row">
 			            <div id="custom-search-input">
-			                <div class="input-group col-md-12">
-			                  <input type="text" class="  search-query form-control" placeholder="Conversation" />
-			                  <button class="btn btn-danger" type="button">
-			                  <span class=" glyphicon glyphicon-search"></span>
-			                  </button>
-			               </div>
+			            	<p>Welcome <b><?php echo $this->session->userdata('user_name');?></b></p>
 			            </div>
 			            <div class="dropdown all_conversation">
 			               <button class="dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -33,19 +28,22 @@
 			            </div>
 			            <div class="member_list">
 			               <ul class="list-unstyled">
+			               	  <?php foreach($active_members as $value){?>
 			                  <li class="left clearfix">
 			                     <span class="chat-img pull-left">
 			                     <img src="https://devci.gabbyville.com/public/img/avatar/p3.jpg" class="img-circle">
 			                     </span>
 			                     <div class="chat-body clearfix">
 			                        <div class="header_sec">
-			                           <strong class="primary-font">Jack Sparrow</strong>
+			                           <strong class="primary-font"><?php echo $value->username?></strong>
 			                        </div>
 			                     </div>
 			                  </li>
+			                  <?php }?>
 			               </ul>
-			            </div></div>
-			         </div>
+			            </div>
+		            </div>
+		         </div>
 			         <!--chat_sidebar-->
 					 
 					 
@@ -109,7 +107,7 @@
 				html += '<li class="left clearfix">'; 
 				html += ' <span class="chat-img1 pull-left">'; 
 				html += '<img src="https://devci.gabbyville.com/public/img/avatar/p3.jpg" alt="User Avatar" class="img-circle">'; 
-				html += ' </span>'; 
+				html += '</span>'; 
 				html += '<div class="chat-body1 clearfix">'; 
 				html += '<p class="font-else">'+data.message+'</p>'; 
 				html += '<div class="chat_time pull-right">'+data.date+'</div>'; 
@@ -123,19 +121,16 @@
 				html += '<li class="left clearfix admin_chat">'; 
 				html += '<span class="chat-img1 pull-right">'; 
 				html += '<img src="https://devci.gabbyville.com/public/img/avatar/p3.jpg" alt="User Avatar" class="img-circle">'; 
-				html += ' </span>'; 
+				html += '</span>'; 
 				html += '<div class="chat-body1 clearfix">'; 
-				html += '<p class="font-me">'+data.message+'</p>'; 
+				html += '<p class="font-me"><b>'+data.username+'</b>:'+data.message+'</p>'; 
 				html += '<div class="chat_time pull-right">'+data.date+'</div>'; 
 				html += '</div>'; 
 				html += '</li>'; 
 				$("html, body .chat_area").animate({ scrollTop: $(document).height() }, 1000);
 				$('#appendchat').append(html);
 			}
-		
-			
 		}
-
 
 		$('#sendchat').click(function(){
 	        message = $('#message').val();
