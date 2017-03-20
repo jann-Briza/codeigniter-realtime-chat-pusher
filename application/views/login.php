@@ -24,7 +24,7 @@
 						</div>
 						<hr>
 					</div>
-					<h1 class="h1text">Chat MOTO</h1>
+					<h1 class="h1text" style="text-align: center;">Chat MOTO</h1>
 					<div class="panel-body">
 						<div class="row">
 							<div class="col-lg-12">

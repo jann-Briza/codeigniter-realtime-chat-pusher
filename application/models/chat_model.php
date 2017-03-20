@@ -26,9 +26,9 @@ class chat_model extends CI_Model
 
 
             $newdata = array(
-              'id'        => $row->id,
-              'user_name' => $row->username,
-              'email'     => $row->first_name, 
+              'id'        => $row[0]->id,
+              'user_name' => $row[0]->username,
+              'email'     => $row[0]->email, 
             );
 
             $this->session->set_userdata($newdata);

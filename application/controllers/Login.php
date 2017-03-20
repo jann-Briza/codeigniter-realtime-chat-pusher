@@ -31,6 +31,7 @@ class Login extends CI_Controller {
 	public function login_submit(){
 
 	 	$logged = $this->chat_model->login();
+
         if( $logged == 1 ){
 
             redirect('chat');

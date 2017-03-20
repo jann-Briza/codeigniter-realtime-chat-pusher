@@ -66,24 +66,6 @@
 					 
 					 <div class="chat_area">
 					 <ul id="appendchat" class="list-unstyled">
-					 <li class="left clearfix">
-	                     <span class="chat-img1 pull-left">
-	                     <img src="https://devci.gabbyville.com/public/img/avatar/p3.jpg" alt="User Avatar" class="img-circle">
-	                     </span>
-	                     <div class="chat-body1 clearfix">
-	                        <p class="font-else">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia.</p>
-							<div class="chat_time pull-right">09:40PM</div>
-	                     </div>
-	                  </li>
-					  <li class="left clearfix admin_chat">
-	                     <span class="chat-img1 pull-right">
-	                     <img src="https://devci.gabbyville.com/public/img/avatar/p3.jpg" alt="User Avatar" class="img-circle">
-	                     </span>
-	                     <div class="chat-body1 clearfix">
-	                        <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia.</p>
-							<div class="chat_time pull-left">09:40PM</div>
-	                     </div>
-	                  </li>
 					 </ul>
 					 </div><!--chat_area-->
 			          <div class="message_write">
@@ -121,18 +103,36 @@
 			sendmessage(data);
 		});
 		function sendmessage(data){
-			html = '';
-			html += '<li class="left clearfix">'; 
-			html += ' <span class="chat-img1 pull-left">'; 
-			html += '<img src="https://devci.gabbyville.com/public/img/avatar/p3.jpg" alt="User Avatar" class="img-circle">'; 
-			html += ' </span>'; 
-			html += '<div class="chat-body1 clearfix">'; 
-			html += '<p class="font-else">'+data.message+'</p>'; 
-			html += '<div class="chat_time pull-right">'+data.date+'</div>'; 
-			html += '</div>'; 
-			html += '</li>'; 
-			$("html, body .chat_area").animate({ scrollTop: $(document).height() }, 1000);
-			$('#appendchat').append(html);
+			var ses_id = <?php echo $this->session->userdata('id');?>;
+			if(data.id == ses_id){
+				html = '';
+				html += '<li class="left clearfix">'; 
+				html += ' <span class="chat-img1 pull-left">'; 
+				html += '<img src="https://devci.gabbyville.com/public/img/avatar/p3.jpg" alt="User Avatar" class="img-circle">'; 
+				html += ' </span>'; 
+				html += '<div class="chat-body1 clearfix">'; 
+				html += '<p class="font-else">'+data.message+'</p>'; 
+				html += '<div class="chat_time pull-right">'+data.date+'</div>'; 
+				html += '</div>'; 
+				html += '</li>'; 
+				$("html, body .chat_area").animate({ scrollTop: $(document).height() }, 1000);
+				$('#appendchat').append(html);
+			}else{
+
+				html = '';
+				html += '<li class="left clearfix admin_chat">'; 
+				html += '<span class="chat-img1 pull-right">'; 
+				html += '<img src="https://devci.gabbyville.com/public/img/avatar/p3.jpg" alt="User Avatar" class="img-circle">'; 
+				html += ' </span>'; 
+				html += '<div class="chat-body1 clearfix">'; 
+				html += '<p class="font-me">'+data.message+'</p>'; 
+				html += '<div class="chat_time pull-right">'+data.date+'</div>'; 
+				html += '</div>'; 
+				html += '</li>'; 
+				$("html, body .chat_area").animate({ scrollTop: $(document).height() }, 1000);
+				$('#appendchat').append(html);
+			}
+		
 			
 		}
 

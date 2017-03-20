@@ -194,6 +194,10 @@ color: #777777;
 .font-else{
   background-color: #dbebff !important;
 }
+.font-me{
+  background-color: #e9eaea !important;
+}
+
 .member_list li:hover {
   background: #428bca none repeat scroll 0 0;
   color: #fff;
